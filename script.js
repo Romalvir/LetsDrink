@@ -4,6 +4,9 @@ const listers = document.getElementById("liters")
 const percentage = document.getElementById("percentage")
 const remained = document.getElementById("remained")
 
+//when the application loads you want to call the function
+updateBigCup()
+
 //loop through all the cups
 //parameters are cup and the index which we call idx.
 
@@ -23,9 +26,6 @@ function highlightCups(idx) {
 				idx--
 		}
 
-
-
-
 	smallCups.forEach((cup, idx2) => {
 			if(idx2 <= idx){
 				cup.classList.add("full")
@@ -33,7 +33,24 @@ function highlightCups(idx) {
 				cup.classList.remove("full")
 			}
 		})
+
+	updateBigCup()
 }
 
 
 
+function updateBigCup() {
+	//get the number of full glasses and put it in an constant
+	const fullCups = document.querySelectorAll(".cup-small.full").length
+	//lets all get the total cups
+	const totalCups = smallCups.length
+
+	if(fullCups === 0){
+		percentage.style.visibility = "hidden"
+		percentage.style.hidden = 0
+	} else {
+		percentage.style.visibility = "visible"
+		percentage.style.hidden = `${fullCups / totalCups * 330}px`
+	}
+	
+}
